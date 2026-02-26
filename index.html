@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog B&L Invitation 💖</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- HERO -->
+   <header class="hero">
+        <div class="container">
+            <div class="brand">B&L Invitation 💖</div>
+            <h1 class="hero-title">Undangan Digital Elegan</h1>
+            <p class="hero-subtitle">
+                Ciptakan momen spesial Anda dengan desain undangan modern & berkelas
+            </p>
+        </div>
+    </header>
+
+    <!-- FILTER -->
+    <section class="filter-section">
+        <div class="container">
+            <div id="filterWrapper" class="filter-wrapper">
+                <!-- Filter akan dibuat otomatis -->
+            </div>
+        </div>
+    </section>
+
+    <!-- GRID -->
+    <section class="invitations-section">
+        <div class="container">
+            <div id="invitations-grid" class="invitations-grid"></div>
+
+            <div id="empty-state" class="empty-state" style="display:none;">
+                <p>Belum ada undangan tersedia</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORDER MODAL -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Pesan Undangan</h2>
+                <button onclick="closeOrderModal()">&times;</button>
+            </div>
+
+            <form id="orderForm">
+                <input type="text" id="orderTheme" disabled>
+
+                <input type="text" id="orderName" placeholder="Nama Lengkap" required>
+                <input type="tel" id="orderPhone" placeholder="No HP" required>
+                <input type="date" id="orderDate" required>
+                <input type="number" id="orderQuantity" placeholder="Jumlah Undangan" required>
+
+                <button type="submit">Lanjut ke WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>

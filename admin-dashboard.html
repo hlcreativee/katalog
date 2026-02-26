@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Undangan Digital</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="container">
+            <h1 data-testid="dashboard-title">Admin Dashboard</h1>
+            <button onclick="logout()" class="logout-btn" data-testid="logout-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <div class="container">
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('invitations')" data-testid="tab-invitations">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    Undangan
+                </button>
+                <button class="tab-btn" onclick="switchTab('categories')" data-testid="tab-categories">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                        <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                    </svg>
+                    Kategori
+                </button>
+            </div>
+
+            <!-- Invitations Tab -->
+            <div id="invitations-tab" class="tab-content active">
+                <button onclick="openInvitationModal()" class="add-btn" data-testid="add-invitation-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Tambah Undangan
+                </button>
+                <div id="invitations-list" class="admin-grid"></div>
+            </div>
+
+            <!-- Categories Tab -->
+            <div id="categories-tab" class="tab-content">
+                <button onclick="openCategoryModal()" class="add-btn" data-testid="add-category-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Tambah Kategori
+                </button>
+                <div id="categories-list" class="admin-grid"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2 id="categoryModalTitle">Tambah Kategori</h2>
+                <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
+            </div>
+            <form id="categoryForm" class="modal-body">
+                <input type="hidden" id="categoryId">
+                <div class="form-group">
+                    <label>Nama Kategori</label>
+                    <input type="text" id="categoryName" required class="form-input" data-testid="category-name-input">
+                </div>
+                <div class="form-group">
+                    <label>Slug</label>
+                    <input type="text" id="categorySlug" placeholder="pernikahan" required class="form-input" data-testid="category-slug-input">
+                </div>
+                <button type="submit" class="submit-btn" data-testid="category-submit-btn">Simpan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Invitation Modal -->
+    <div id="invitationModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="invitationModalTitle">Tambah Undangan</h2>
+                <button class="close-btn" onclick="closeInvitationModal()">&times;</button>
+            </div>
+            <form id="invitationForm" class="modal-body">
+                <input type="hidden" id="invitationId">
+                <div class="form-group">
+                    <label>Judul</label>
+                    <input type="text" id="invitationTitle" required class="form-input" data-testid="invitation-title-input">
+                </div>
+                <div class="form-group">
+                    <label>Deskripsi</label>
+                    <input type="text" id="invitationDescription" required class="form-input" data-testid="invitation-description-input">
+                </div>
+                <div class="form-group">
+                    <label>URL Gambar</label>
+                    <input type="url" id="invitationImage" placeholder="https://example.com/image.jpg" required class="form-input" data-testid="invitation-image-input">
+                </div>
+                <div class="form-group">
+                    <label>URL Demo</label>
+                    <input type="url" id="invitationDemo" placeholder="https://example.com/demo" required class="form-input" data-testid="invitation-demo-input">
+                </div>
+                <div class="form-group">
+                    <label>Harga (Rp)</label>
+                    <input type="number" id="invitationPrice" required class="form-input" data-testid="invitation-price-input">
+                </div>
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="invitationCategory" required class="form-input" data-testid="invitation-category-select">
+                        <option value="">Pilih kategori</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn" data-testid="invitation-submit-btn">Simpan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
