@@ -38,5 +38,20 @@
     <div id="toast" class="toast"></div>
 
     <script src="admin.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === "blundangan" && password === "10juni2024") {
+                localStorage.setItem('isAdminLoggedIn', 'true');
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                alert("Username atau password salah!");
+            }
+        });
+    </script>
 </body>
 </html>
