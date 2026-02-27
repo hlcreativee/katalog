@@ -107,43 +107,44 @@ async function renderInvitations(categoryId = null) {
     emptyState.style.display = 'none';
 
     grid.innerHTML = invitations.map(inv => {
-        const category = categories.find(c => c.id === inv.category_id);
+    const category = categories.find(c => c.id === inv.category_id);
 
         return `
-            <div class="invitation-card">
-                <img src="${inv.image_url}" alt="${inv.title}">
-                <h3>${inv.title}</h3>
-                <p>${category ? category.name : ''}</p>
-                <p>Rp ${Number(inv.price).toLocaleString('id-ID')}</p>
+            <div class="card">
+                <img 
+                    src="${inv.image_url}" 
+                    alt="${inv.title}" 
+                    class="card-image"
+                >
 
-                <!-- Tombol Preview Undangan -->
-                <button 
-                    onclick="window.open('${inv.demo_url}', '_blank')" 
-                    style="
-                        background-color:black; 
-                        color:white; 
-                        border:none; 
-                        padding:8px 14px; 
-                        border-radius:6px; 
-                        cursor:pointer; 
-                        margin-right:8px;
-                    ">
-                    Preview Undangan
-                </button>
+                <div class="card-content">
+                    <h3 class="card-title">${inv.title}</h3>
+                    <p class="card-description">
+                        ${category ? category.name : ''}
+                    </p>
 
-                <!-- Tombol Pesan Sekarang -->
-                <button 
-                    onclick="openOrderModal('${inv.title}')" 
-                    style="
-                        background-color:#1e90ff; 
-                        color:white; 
-                        border:none; 
-                        padding:8px 14px; 
-                        border-radius:6px; 
-                        cursor:pointer;
-                    ">
-                    Pesan Sekarang
-                </button>
+                    <div class="card-price">
+                        Rp ${Number(inv.price).toLocaleString('id-ID')}
+                    </div>
+
+                    <div style="margin-top: 12px;">
+                        <button 
+                            onclick="window.open('${inv.demo_url}', '_blank')" 
+                            class="btn-text"
+                            style="margin-right:8px;"
+                        >
+                            Preview Undangan
+                        </button>
+
+                        <button 
+                            onclick="openOrderModal('${inv.title}')"
+                            class="order-btn"
+                            style="margin-top:10px;"
+                        >
+                            Pesan Sekarang
+                        </button>
+                    </div>
+                </div>
             </div>
         `;
     }).join('');
@@ -187,8 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const quantity = document.getElementById('orderQuantity').value;
 
         const message = `
-Halo Admin 👋
-
+Halo B&L Invitation 💖
 Saya ingin memesan undangan digital:
 
 Tema: ${theme}
